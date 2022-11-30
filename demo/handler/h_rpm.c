@@ -42,7 +42,7 @@
 #include "rpm.h"
 #include "handlers.h"
 /* device object has custom handler for all objects */
-#include "device.h"
+#include "c_wrapper.h"
 
 /** @file h_rpm.c  Handles Read Property Multiple requests. */
 

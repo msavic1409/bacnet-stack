@@ -34,7 +34,7 @@
 #include "npdu.h"
 #include "reject.h"
 #include "handlers.h"
-#include "device.h"
+// #include "device.h"
 
 /** @file noserv.c  Handles an unrecognized/unsupported service. */
 
@@ -73,7 +73,7 @@ void handler_unrecognized_service(
     /* encode the APDU portion of the packet */
     len =
         reject_encode_apdu(&Handler_Transmit_Buffer[pdu_len],
-        service_data->invoke_id, REJECT_REASON_UNRECOGNIZED_SERVICE);
+            service_data->invoke_id, REJECT_REASON_UNRECOGNIZED_SERVICE);
     pdu_len += len;
     /* send the data */
     bytes_sent =

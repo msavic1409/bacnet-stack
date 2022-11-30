@@ -22,10 +22,12 @@
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 *
 *********************************************************************/
+
 #include <stddef.h>
 #include <stdint.h>
 #include <errno.h>
 #include <string.h>
+
 #include "config.h"
 #include "txbuf.h"
 #include "bacdef.h"
@@ -34,11 +36,10 @@
 #include "tsm.h"
 #include "npdu.h"
 #include "apdu.h"
-#include "device.h"
 #include "datalink.h"
 #include "dcc.h"
 #include "ihave.h"
-/* some demo stuff needed */
+
 #include "handlers.h"
 #include "txbuf.h"
 #include "client.h"

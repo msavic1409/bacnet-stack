@@ -34,147 +34,167 @@
 
 struct sockaddr_in;     /* Defined elsewhere, needed here. */
 
+static struct sockaddr_in Remote_BBMD;
+
+enum LastRegistrationStatusCode {
+    NO_REGISTRATION = 0,
+    SUCCESS,
+    FAIL
+};
+
 #ifdef __cplusplus
 extern "C" {
 
 #endif /* __cplusplus */
 
 #if defined(BBMD_ENABLED) && BBMD_ENABLED
-    void bvlc_maintenance_timer(
-        time_t seconds);
+void bvlc_maintenance_timer(
+    time_t seconds);
 #else
 #define bvlc_maintenance_timer(x)
 #endif
 
-    typedef struct {
-        /* true if valid entry - false if not */
-        bool valid;
-        /* BACnet/IP address */
-        struct in_addr dest_address;        /* in network format */
-        /* BACnet/IP port number - not always 47808=BAC0h */
-        uint16_t dest_port; /* in network format */
-        /* Broadcast Distribution Mask */
-        struct in_addr broadcast_mask;      /* in tework format */
-    } BBMD_TABLE_ENTRY;
+typedef struct {
+    /* true if valid entry - false if not */
+    bool valid;
+    /* BACnet/IP address */
+    struct in_addr dest_address;        /* in network format */
+    /* BACnet/IP port number - not always 47808=BAC0h */
+    uint16_t dest_port; /* in network format */
+    /* Broadcast Distribution Mask */
+    struct in_addr broadcast_mask;      /* in tework format */
+} BBMD_TABLE_ENTRY;
 
-    uint16_t bvlc_receive(
-        BACNET_ADDRESS * src,   /* returns the source address */
-        uint8_t * npdu, /* returns the NPDU */
+uint16_t bvlc_receive(
+        BACNET_ADDRESS *src,   /* returns the source address */
+        uint8_t *npdu, /* returns the NPDU */
         uint16_t max_npdu,      /* amount of space available in the NPDU  */
         unsigned timeout);      /* number of milliseconds to wait for a packet */
 
-    int bvlc_send_pdu(
-        BACNET_ADDRESS * dest,  /* destination address */
-        BACNET_NPDU_DATA * npdu_data,   /* network information */
-        uint8_t * pdu,  /* any data to be sent - may be null */
+int bvlc_send_pdu(
+        BACNET_ADDRESS *dest,  /* destination address */
+        BACNET_NPDU_DATA *npdu_data,   /* network information */
+        uint8_t *pdu,  /* any data to be sent - may be null */
         unsigned pdu_len);
 
-    int bvlc_send_mpdu(
+int bvlc_send_mpdu(
         struct sockaddr_in *dest,
-        uint8_t * mtu,
+        uint8_t *mtu,
         uint16_t mtu_len);
 
 #if defined(BBMD_CLIENT_ENABLED) && BBMD_CLIENT_ENABLED
-    int bvlc_encode_write_bdt_init(
-        uint8_t * pdu,
-        unsigned entries);
-    int bvlc_encode_read_fdt(
-        uint8_t * pdu);
-    int bvlc_encode_delete_fdt_entry(
-        uint8_t * pdu,
-        uint32_t address,       /* in network byte order */
-        uint16_t port); /* in network byte order */
-    int bvlc_encode_original_unicast_npdu(
-        uint8_t * pdu,
-        uint8_t * npdu,
-        unsigned npdu_length);
-    int bvlc_encode_original_broadcast_npdu(
-        uint8_t * pdu,
-        uint8_t * npdu,
-        unsigned npdu_length);
+int bvlc_encode_write_bdt_init(
+    uint8_t * pdu,
+    unsigned entries);
+int bvlc_encode_read_fdt(
+    uint8_t * pdu);
+int bvlc_encode_delete_fdt_entry(
+    uint8_t * pdu,
+    uint32_t address,       /* in network byte order */
+    uint16_t port); /* in network byte order */
+int bvlc_encode_original_unicast_npdu(
+    uint8_t * pdu,
+    uint8_t * npdu,
+    unsigned npdu_length);
+int bvlc_encode_original_broadcast_npdu(
+    uint8_t * pdu,
+    uint8_t * npdu,
+    unsigned npdu_length);
 #endif
-    int bvlc_encode_read_bdt(
-        uint8_t * pdu);
-    int bvlc_bbmd_read_bdt(
+
+int bvlc_encode_read_bdt(
+        uint8_t *pdu);
+
+int bvlc_bbmd_read_bdt(
         uint32_t bbmd_address,
         uint16_t bbmd_port);
 
-    /* registers with a bbmd as a foreign device */
-    int bvlc_register_with_bbmd(
+/* registers with a bbmd as a foreign device */
+int bvlc_register_with_bbmd(
         uint32_t bbmd_address,  /* in network byte order */
         uint16_t bbmd_port,     /* in network byte order */
         uint16_t time_to_live_seconds);
 
-    /* Note any BVLC_RESULT code, or NAK the BVLL message in the unsupported cases. */
-    int bvlc_for_non_bbmd(
+/* Note any BVLC_RESULT code, or NAK the BVLL message in the unsupported cases. */
+int bvlc_for_non_bbmd(
         struct sockaddr_in *sout,
-        uint8_t * npdu,
+        uint8_t *npdu,
         uint16_t received_bytes);
 
-    /* Returns the last BVLL Result we received, either as the result of a BBMD
-     * request we sent, or (if not a BBMD or Client), from trying to register
-     * as a foreign device. */
-    BACNET_BVLC_RESULT bvlc_get_last_result(
+/* Returns the last BVLL Result we received, either as the result of a BBMD
+ * request we sent, or (if not a BBMD or Client), from trying to register
+ * as a foreign device. */
+BACNET_BVLC_RESULT bvlc_get_last_result(
         void);
 
-    /* Returns the current BVLL Function Code we are processing.
-     * We have to store this higher layer code for when the lower layers
-     * need to know what it is, especially to differentiate between
-     * BVLC_ORIGINAL_UNICAST_NPDU and BVLC_ORIGINAL_BROADCAST_NPDU.  */
-    BACNET_BVLC_FUNCTION bvlc_get_function_code(
+/* Returns the current BVLL Function Code we are processing.
+ * We have to store this higher layer code for when the lower layers
+ * need to know what it is, especially to differentiate between
+ * BVLC_ORIGINAL_UNICAST_NPDU and BVLC_ORIGINAL_BROADCAST_NPDU.  */
+BACNET_BVLC_FUNCTION bvlc_get_function_code(
         void);
 
 
-    /* Local interface to manage BBMD.
-     * The interface user needs to handle mutual exclusion if needed i.e.
-     * BACnet packet is not being handled when the BBMD table is modified.
-     */
+/* Local interface to manage BBMD.
+ * The interface user needs to handle mutual exclusion if needed i.e.
+ * BACnet packet is not being handled when the BBMD table is modified.
+ */
 
-    /* Get handle to broadcast distribution table. Returns the number of
-     * valid entries in the table. */
-    int bvlc_get_bdt_local(
-         const BBMD_TABLE_ENTRY** table);
+/* Get handle to broadcast distribution table. Returns the number of
+ * valid entries in the table. */
+int bvlc_get_bdt_local(
+        const BBMD_TABLE_ENTRY **table);
 
-    /* Invalidate all entries in the broadcast distribution table */
-    void bvlc_clear_bdt_local(void);
+/* Invalidate all entries in the broadcast distribution table */
+void bvlc_clear_bdt_local(void);
 
-    /* Add new entry to broadcast distribution table. Returns true if the new
-     * entry was added successfully */
-    bool bvlc_add_bdt_entry_local(
-        BBMD_TABLE_ENTRY* entry);
+/* Add new entry to broadcast distribution table. Returns true if the new
+ * entry was added successfully */
+bool bvlc_add_bdt_entry_local(
+        BBMD_TABLE_ENTRY *entry);
 
-    /* Backup broadcast distribution table to a file.
-     * Filename is the BBMD_BACKUP_FILE constant
-     */
-    void bvlc_bdt_backup_local(
+/* Backup broadcast distribution table to a file.
+ * Filename is the BBMD_BACKUP_FILE constant
+ */
+void bvlc_bdt_backup_local(
         void);
 
-    /* Restore broadcast distribution from a file.
-     * Filename is the BBMD_BACKUP_FILE constant
-     */
-    void bvlc_bdt_restore_local(
+/* Restore broadcast distribution from a file.
+ * Filename is the BBMD_BACKUP_FILE constant
+ */
+void bvlc_bdt_restore_local(
         void);
 
-    /* NAT handling
-     * If the communication between BBMDs goes through a NAT enabled internet
-     * router, special considerations are needed as stated in Annex J.7.8.
-     *
-     * In short, the local IP address of the BBMD is different than the global
-     * address which is visible to the other BBMDs or foreign devices. This is
-     * why the source address in forwarded messages needs to be changed to the
-     * global IP address.
-     *
-     * For other considerations/limitations see Annex J.7.8.
-     */
+/* NAT handling
+ * If the communication between BBMDs goes through a NAT enabled internet
+ * router, special considerations are needed as stated in Annex J.7.8.
+ *
+ * In short, the local IP address of the BBMD is different than the global
+ * address which is visible to the other BBMDs or foreign devices. This is
+ * why the source address in forwarded messages needs to be changed to the
+ * global IP address.
+ *
+ * For other considerations/limitations see Annex J.7.8.
+ */
 
-    /* Set global IP address of a NAT enabled router which is used in forwarded
-     * messages. Enables NAT handling.
-     */
-    void bvlc_set_global_address_for_nat(const struct in_addr* addr);
+/* Set global IP address of a NAT enabled router which is used in forwarded
+ * messages. Enables NAT handling.
+ */
+void bvlc_set_global_address_for_nat(const struct in_addr *addr);
 
-    /* Disable NAT handling of BBMD.
-     */
-    void bvlc_disable_nat(void);
+/* Disable NAT handling of BBMD.
+ */
+void bvlc_disable_nat(void);
+
+in_port_t bvlc_get_remote_bbmd_sin_port();
+
+in_addr_t bvlc_get_remote_bbmd_address();
+
+void bvlc_reset_remote_bbmd_settings();
+
+enum LastRegistrationStatusCode bvlc_get_last_registration_status();
+
+void bvlc_set_last_registration_status(enum LastRegistrationStatusCode status);
 
 #ifdef __cplusplus
 }
