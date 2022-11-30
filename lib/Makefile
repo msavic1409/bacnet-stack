@@ -22,7 +22,7 @@ INCLUDES = $(INCLUDE1) $(INCLUDE2)
 
 # target
 TARGET = bacnet
-LIBRARY = lib$(TARGET).a
+LIBRARY = lib$(TARGET).so
 
 CORE_SRC = \
 	$(BACNET_CORE)/apdu.c \
@@ -194,10 +194,10 @@ all: $(LIBRARY)
 lib: $(LIBRARY)
 
 $(LIBRARY): $(OBJS) Makefile
-	$(AR) rcs $@ $(OBJS)
+	$(CC) -fPIC -rdynamic -shared $(OBJS) -o $@
 
 .c.o:
-	${CC} -c ${CFLAGS} $*.c -o $@
+	${CC} -c ${CFLAGS} -fPIC $*.c -o $@
 
 depend:
 	rm -f .depend
