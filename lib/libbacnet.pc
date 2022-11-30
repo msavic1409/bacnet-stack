@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}//lib
+includedir=${prefix}/include/bacnet
+
+Name: libbacnet
+Description: Library for BACnet
+Version: 0.8.6
+Requires.private:
+Libs: -L${libdir} -lbacnet
+Libs.private:
+Cflags: -I${includedir}
