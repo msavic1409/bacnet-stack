@@ -187,21 +187,22 @@ SRCS = ${CORE_SRC} ${PORT_SRC} ${HANDLER_SRC}
 OBJS = ${SRCS:.c=.o}
 
 # use local includes, but other values from calling Makefile
-CFLAGS  = $(WARNINGS) $(DEBUGGING) $(OPTIMIZATION) $(STANDARDS) $(INCLUDES) $(DEFINES)
+CFLAGS  = $(WARNINGS) $(DEBUGGING) $(OPTIMIZATION) $(STANDARDS) $(INCLUDES) $(DEFINES) $(USER_CFLAGS)
+LDFLAGS = -fPIC -rdynamic -shared $(USER_LDFLAGS)
 
 all: $(LIBRARY)
 
 lib: $(LIBRARY)
 
 $(LIBRARY): $(OBJS) Makefile
-	$(CC) -fPIC -rdynamic -shared $(OBJS) -o $@
+	$(CC) $(LDFLAGS) $(OBJS) -o $@
 
 .c.o:
-	${CC} -c ${CFLAGS} -fPIC $*.c -o $@
+	$(CC) -c $(CFLAGS) -fPIC $*.c -o $@
 
 depend:
 	rm -f .depend
-	${CC} -MM ${CFLAGS} *.c >> .depend
+	$(CC) -MM $(CFLAGS) *.c >> .depend
 
 clean:
 	rm -rf core $(OBJS) $(LIBRARY)

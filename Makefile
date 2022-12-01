@@ -49,7 +49,7 @@ ifeq (${BACDL_DEFINE},-DBACDL_BIP=1)
 DEFINES += -DBIP_DEBUG
 endif
 endif
-CFLAGS  = $(WARNINGS) $(DEBUGGING) $(OPTIMIZATION) $(STANDARDS) $(INCLUDES) $(DEFINES)
+CFLAGS  = $(WARNINGS) $(DEBUGGING) $(OPTIMIZATION) $(STANDARDS) $(INCLUDES) $(DEFINES) $(USER_CFLAGS)
 
 # Export the variables defined here to all subprocesses
 # (see http://www.gnu.org/software/automake/manual/make/Special-Targets.html)
