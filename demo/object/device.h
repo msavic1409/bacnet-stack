@@ -233,7 +233,7 @@ extern "C" {
     rr_info_function Device_Objects_RR_Info(
         BACNET_OBJECT_TYPE object_type);
 
-    _attribute__((weak)) void Device_getCurrentDateTime(
+    __attribute__((weak)) void Device_getCurrentDateTime(
         BACNET_DATE_TIME * DateTime);
     int32_t Device_UTC_Offset(void);
     bool Device_Daylight_Savings_Status(void);
@@ -248,7 +248,7 @@ extern "C" {
         const int **pRequired,
         const int **pOptional,
         const int **pProprietary);
-    _attribute__((weak)) void Device_Objects_Property_List(
+    __attribute__((weak)) void Device_Objects_Property_List(
         BACNET_OBJECT_TYPE object_type,
         struct special_property_list_t *pPropertyList);
     /* functions to support COV */
@@ -265,7 +265,7 @@ extern "C" {
         BACNET_OBJECT_TYPE object_type,
         uint32_t object_instance);
 
-    _attribute__((weak)) uint32_t Device_Object_Instance_Number(
+    __attribute__((weak)) uint32_t Device_Object_Instance_Number(
         void);
     bool Device_Set_Object_Instance_Number(
         uint32_t object_id);
@@ -289,7 +289,7 @@ extern "C" {
     bool Device_Set_Object_Name(
         BACNET_CHARACTER_STRING * object_name);
     /* Copy a child object name, given its ID. */
-    _attribute__((weak)) bool Device_Object_Name_Copy(
+    __attribute__((weak)) bool Device_Object_Name_Copy(
         BACNET_OBJECT_TYPE object_type,
         uint32_t object_instance,
         BACNET_CHARACTER_STRING * object_name);
@@ -304,7 +304,7 @@ extern "C" {
     const char *Device_Vendor_Name(
         void);
 
-    _attribute__((weak)) uint16_t Device_Vendor_Identifier(
+    __attribute__((weak)) uint16_t Device_Vendor_Identifier(
         void);
     void Device_Set_Vendor_Identifier(
         uint16_t vendor_id);
@@ -351,17 +351,17 @@ extern "C" {
     void Device_Inc_Database_Revision(
         void);
 
-    _attribute__((weak)) bool Device_Valid_Object_Name(
+    __attribute__((weak)) bool Device_Valid_Object_Name(
         BACNET_CHARACTER_STRING * object_name,
         int *object_type,
         uint32_t * object_instance);
-    _attribute__((weak)) bool Device_Valid_Object_Id(
+    __attribute__((weak)) bool Device_Valid_Object_Id(
         int object_type,
         uint32_t object_instance);
 
-    _attribute__((weak)) int Device_Read_Property(
+    __attribute__((weak)) int Device_Read_Property(
         BACNET_READ_PROPERTY_DATA * rpdata);
-    _attribute__((weak)) bool Device_Write_Property(
+    __attribute__((weak)) bool Device_Write_Property(
         BACNET_WRITE_PROPERTY_DATA * wp_data);
 
     bool DeviceGetRRInfo(

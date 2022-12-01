@@ -41,7 +41,7 @@
 #include "reject.h"
 #include "rp.h"
 
-#include "c_wrapper.h"
+#include "device.h"
 #include "handlers.h"
 
 /**

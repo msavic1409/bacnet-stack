@@ -35,7 +35,7 @@
 #include "bacdcode.h"
 #include "whohas.h"
 
-#include "c_wrapper.h"
+#include "device.h"
 #include "handlers.h"
 #include "client.h"
 

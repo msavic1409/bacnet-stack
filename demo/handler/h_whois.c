@@ -36,7 +36,7 @@
 #include "txbuf.h"
 #include "whois.h"
 
-#include "c_wrapper.h"
+#include "device.h"
 #include "client.h"
 #include "handlers.h"
 

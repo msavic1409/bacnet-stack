@@ -44,7 +44,7 @@
 #include "bactext.h"
 #endif
 /* demo objects */
-#include "c_wrapper.h"
+#include "device.h"
 #include "handlers.h"
 
 /** @file h_cov.c  Handles Change of Value (COV) services. */

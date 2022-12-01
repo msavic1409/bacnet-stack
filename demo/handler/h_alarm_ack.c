@@ -42,7 +42,7 @@
 #include "abort.h"
 //#include "device.h"
 
-#include "c_wrapper.h"
+#include "device.h"
 
 /** @file h_alarm_ack.c  Handles Alarm Acknowledgment. */
 

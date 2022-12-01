@@ -40,7 +40,7 @@
 #include "abort.h"
 #include "wp.h"
 
-#include "c_wrapper.h"
+#include "device.h"
 #include "handlers.h"
 
 /**
