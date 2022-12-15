@@ -129,6 +129,9 @@ HANDLER_SRC = \
 	$(BACNET_HANDLER)/s_upt.c \
 	$(BACNET_HANDLER)/s_wp.c
 
+OBJECT_SRC = \
+	$(BACNET_OBJECT)/device.c
+
 PORT_ARCNET_SRC = \
 	$(BACNET_PORT_DIR)/arcnet.c
 
@@ -182,7 +185,7 @@ ifdef BACDL_ALL
 PORT_SRC = ${PORT_ALL_SRC}
 endif
 
-SRCS = ${CORE_SRC} ${PORT_SRC} ${HANDLER_SRC}
+SRCS = ${CORE_SRC} ${PORT_SRC} ${HANDLER_SRC} ${OBJECT_SRC}
 
 OBJS = ${SRCS:.c=.o}
 
