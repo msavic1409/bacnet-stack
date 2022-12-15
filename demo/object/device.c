@@ -453,7 +453,7 @@ rr_info_function Device_Objects_RR_Info(
  *            list, separately, the Required, Optional, and Proprietary object
  *            properties with their counts.
  */
-___attribute__((weak)) void Device_Objects_Property_List(
+__attribute__((weak)) void Device_Objects_Property_List(
     BACNET_OBJECT_TYPE object_type,
     struct special_property_list_t *pPropertyList)
 {
@@ -682,7 +682,7 @@ uint32_t Device_Index_To_Instance(
  * @ingroup ObjIntf
  * @return The Instance number used in the BACNET_OBJECT_ID for the Device.
  */
-___attribute__((weak)) uint32_t Device_Object_Instance_Number(
+__attribute__((weak)) uint32_t Device_Object_Instance_Number(
     void)
 {
 #ifdef BAC_ROUTING
@@ -821,7 +821,7 @@ const char *Device_Vendor_Name(
  * See the assignments at http://www.bacnet.org/VendorID/BACnet%20Vendor%20IDs.htm
  * @return The Vendor ID of this Device.
  */
-___attribute__((weak)) uint16_t Device_Vendor_Identifier(
+__attribute__((weak)) uint16_t Device_Vendor_Identifier(
     void)
 {
     return Vendor_Identifier;
@@ -1056,7 +1056,7 @@ bool Device_Object_List_Identifier(
  * @param object_instance [out] The object instance number of the matching Object.
  * @return True on success or else False if not found.
  */
-___attribute__((weak)) bool Device_Valid_Object_Name(
+__attribute__((weak)) bool Device_Valid_Object_Name(
     BACNET_CHARACTER_STRING * object_name1,
     int *object_type,
     uint32_t * object_instance)
@@ -1097,7 +1097,7 @@ ___attribute__((weak)) bool Device_Valid_Object_Name(
  * @param object_instance [in] The object instance number to be looked up.
  * @return True if found, else False if no such Object in this device.
  */
-___attribute__((weak)) bool Device_Valid_Object_Id(
+__attribute__((weak)) bool Device_Valid_Object_Id(
     int object_type,
     uint32_t object_instance)
 {
@@ -1118,7 +1118,7 @@ ___attribute__((weak)) bool Device_Valid_Object_Id(
  * @param object_name [out] The Object Name found for this child Object.
  * @return True on success or else False if not found.
  */
-___attribute__((weak)) bool Device_Object_Name_Copy(
+__attribute__((weak)) bool Device_Object_Name_Copy(
     BACNET_OBJECT_TYPE object_type,
     uint32_t object_instance,
     BACNET_CHARACTER_STRING * object_name)
@@ -1190,7 +1190,7 @@ int    tm_isdst Daylight Savings flag.
     }
 }
 
-___attribute__((weak)) void Device_getCurrentDateTime(
+__attribute__((weak)) void Device_getCurrentDateTime(
     BACNET_DATE_TIME * DateTime)
 {
     Update_Current_Time();
@@ -1453,7 +1453,7 @@ int Device_Read_Property_Local(
  *                 on entry, and APDU message on return.
  * @return The length of the APDU on success, else BACNET_STATUS_ERROR
  */
-___attribute__((weak)) int Device_Read_Property(
+__attribute__((weak)) int Device_Read_Property(
     BACNET_READ_PROPERTY_DATA * rpdata)
 {
     int apdu_len = BACNET_STATUS_ERROR;
@@ -1696,7 +1696,7 @@ bool Device_Write_Property_Local(
  *              and new Value on entry, and APDU message on return.
  * @return True on success, else False if there is an error.
  */
-___attribute__((weak)) bool Device_Write_Property(
+__attribute__((weak)) bool Device_Write_Property(
     BACNET_WRITE_PROPERTY_DATA * wp_data)
 {
     bool status = false;        /* Ever the pessamist! */
