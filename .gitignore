@@ -1,53 +1,27 @@
-# Prerequisites
-*.d
+# Build directory
+build-*
+cmake-build-*
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+# IDE files
+.vscode
+.idea/
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Temporary files in "updates"
+updates/**/*.zip
+updates/**/*.sig
+updates/gf_update
+updates/liblegiotherm.sym
+updates/firmware*.json
+updates/fsu_temp
+gfp-hycleen-sysimage-v*
 
-# Precompiled Headers
-*.gch
-*.pch
+# BACnet built files
+libs/bacnetserver-stack/build
+libs/bacnetserver-stack/3rdparty/bacnet-stack-0.8.6/demo
+libs/bacnetserver-stack/3rdparty/bacnet-stack-0.8.6/src/*.o
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# CMake files
+CMakeLists.txt.user
+ 
+nohup.out
 
